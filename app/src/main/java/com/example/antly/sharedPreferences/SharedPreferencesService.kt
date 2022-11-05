@@ -2,8 +2,9 @@ package com.example.antly.sharedPreferences
 
 import android.content.Context
 import com.example.antly.sharedPreferences.data.ApiTokenSharedPreference
+import javax.inject.Inject
 
-class SharedPreferencesService(
+class SharedPreferencesService @Inject constructor(
     private val context: Context
 ) {
     private val sharedPreferences = context.getSharedPreferences(

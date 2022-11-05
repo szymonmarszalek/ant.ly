@@ -6,22 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".SecondFragment">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
+    <EditText
+        android:id="@+id/loginInput"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="@+id/loginInput"
+        app:layout_constraintTop_toBottomOf="@+id/loginInput" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="@+id/passwordInput"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+
+    <EditText
+        android:id="@+id/surname"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+
     <Button
-        android:id="@+id/button_second"
+        android:id="@+id/registerButton"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
+        app:layout_constraintEnd_toEndOf="@+id/surname"
+        app:layout_constraintStart_toStartOf="@+id/surname"
+        app:layout_constraintTop_toBottomOf="@+id/surname"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
