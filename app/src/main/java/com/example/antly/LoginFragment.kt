@@ -1,27 +1,28 @@
 package com.example.antly
 
+
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-
-
-
+import com.example.antly.common.Resource
 import dagger.hilt.android.AndroidEntryPoint
+
 //
 //
 @AndroidEntryPoint
-class FirstFragment : Fragment() {
+class LoginFragment : Fragment() {
 
 
-    private val loginViewModel:LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
 
@@ -30,7 +31,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.fragment_first,
+            R.layout.fragment_login,
             container,
             false
         )
@@ -45,12 +46,14 @@ class FirstFragment : Fragment() {
         val passwordInput = view.findViewById<EditText>(R.id.passwordInput)
 
         loginButton.setOnClickListener {
-            println("HELLO")
             loginViewModel.login(loginInput.text.toString(), passwordInput.text.toString())
 
             loginViewModel.viewState.observe(viewLifecycleOwner) {
-                println("tutaj")
-                println(it)
+                when(it) {
+                    is Resource.Success -> loginUser()
+                    is Resource.Loading -> println("ładowanie")
+                    is Resource.Error -> println(it.message)
+                }
             }
         }
 
@@ -58,9 +61,16 @@ class FirstFragment : Fragment() {
             requireActivity()
                 .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
                 .findNavController()
-                .navigate(R.id.action_FirstFragment_to_SecondFragment)
+                .navigate(R.id.action_loginFragment_to_secondFragment)
+        }
+    }
+
+    private fun loginUser() {
+        val intent = Intent(requireContext(), MainActivity::class.java).apply {
+            flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
 
+        startActivity(intent)
     }
 
     override fun onDestroyView() {

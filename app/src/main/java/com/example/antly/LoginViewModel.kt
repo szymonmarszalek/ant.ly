@@ -29,9 +29,10 @@ class LoginViewModel @Inject constructor(
         loginUseCase(userDto).onEach {
             when(it) {
                 is Resource.Success -> {
-                    sharedPreferencesService.saveApiToken(it.data!!.token)
+                    sharedPreferencesService.saveApiToken(it.data!!)
+                    _viewState.value = Resource.Success(it.data)
                 }
-                is Resource.Error -> println("nieudano")
+                is Resource.Error ->  _viewState.value = Resource.Error("Nieudano")
             }
         }.launchIn(viewModelScope)
     }
