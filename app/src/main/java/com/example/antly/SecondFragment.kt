@@ -43,7 +43,6 @@ class SecondFragment : Fragment() {
         val registerButton = view.findViewById<Button>(R.id.registerButton)
 
         registerButton.setOnClickListener {
-            println("click")
             viewModel.register(
                 RegisterData(
                     loginInput.text.toString(),

@@ -3,6 +3,7 @@ package com.example.antly.ApiConnection
 import com.example.antly.data.RegisterData
 import com.example.antly.data.dto.LoginResponseDto
 import com.example.antly.data.dto.Offer
+import com.example.antly.data.dto.OfferResponse
 import com.example.antly.data.dto.UserDto
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,5 +20,8 @@ interface AntlyApi {
     suspend fun registerUser(@Body registerData: RegisterData): String
 
     @GET("/offers")
-    suspend fun getAllOffers(): List<Offer>
+    suspend fun getAllOffers(): List<OfferResponse>
+
+    @POST("/offers")
+    suspend fun postOffer(@Body offer: Offer): OfferResponse
 }

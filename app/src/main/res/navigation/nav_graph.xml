@@ -8,5 +8,14 @@
         android:id="@+id/mainFragment"
         android:name="com.example.antly.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_addOfferFragment"
+            app:destination="@id/addOfferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addOfferFragment"
+        android:name="com.example.antly.AddOfferFragment"
+        android:label="fragment_add_offer"
+        tools:layout="@layout/fragment_add_offer" />
 </navigation>

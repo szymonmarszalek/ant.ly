@@ -1,7 +1,6 @@
 package com.example.antly.domain.use_case.login_use_case
 
 import com.example.antly.common.Resource
-import com.example.antly.data.dto.LoginResponseDto
 import com.example.antly.data.dto.UserDto
 import com.example.antly.data.dto.getToken
 import com.example.antly.domain.repository.LoginRepository
