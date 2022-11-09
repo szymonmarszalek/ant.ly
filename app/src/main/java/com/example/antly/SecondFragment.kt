@@ -10,15 +10,14 @@ import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.antly.data.RegisterData
+import com.example.antly.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 @AndroidEntryPoint
 class SecondFragment : Fragment() {
+    private var _binding: FragmentSecondBinding? = null
 
+    private val binding get() = _binding!!
     private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
@@ -26,11 +25,9 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(
-            R.layout.fragment_second,
-            container,
-            false
-        )
+        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
 
     }
 
@@ -45,10 +42,10 @@ class SecondFragment : Fragment() {
         registerButton.setOnClickListener {
             viewModel.register(
                 RegisterData(
-                    loginInput.text.toString(),
-                    passwordInput.text.toString(),
-                    nameInput.text.toString(),
-                    surnameInput.text.toString()
+                    binding.loginInput.text.toString(),
+                    binding.passwordInput.text.toString(),
+                    binding.name.text.toString(),
+                    binding.surname.text.toString()
                 )
             )
         }
@@ -61,6 +58,6 @@ class SecondFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
+        _binding = null
     }
 }

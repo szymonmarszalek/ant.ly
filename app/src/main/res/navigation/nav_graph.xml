@@ -3,19 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/useHome">
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/useHome"
         android:name="com.example.antly.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_addOfferFragment"
-            app:destination="@id/addOfferFragment" />
+            app:destination="@id/useNewOffer" />
+        <action
+            android:id="@+id/action_useHome_to_userAddedOffersFragment"
+            app:destination="@id/useYourCourses" />
+        <action
+            android:id="@+id/action_useHome_to_useAccount"
+            app:destination="@id/useAccount" />
+        <action
+            android:id="@+id/action_useHome_to_useBoughtCourses"
+            app:destination="@id/useBoughtCourses" />
     </fragment>
     <fragment
-        android:id="@+id/addOfferFragment"
+        android:id="@+id/useNewOffer"
         android:name="com.example.antly.AddOfferFragment"
         android:label="fragment_add_offer"
         tools:layout="@layout/fragment_add_offer" />
+    <fragment
+        android:id="@+id/useYourCourses"
+        android:name="com.example.antly.UserAddedOffersFragment"
+        android:label="fragment_user_added_offers"
+        tools:layout="@layout/fragment_user_added_offers" />
+
+    <fragment
+        android:id="@+id/useAccount"
+        android:name="com.example.antly.UserAccountFragment"
+        android:label="fragment_user_added_offers"
+        tools:layout="@layout/fragment_user_added_offers" />
+
+    <fragment
+        android:id="@+id/useBoughtCourses"
+        android:name="com.example.antly.UserBoughtOffersFragment"
+        android:label="fragment_user_added_offers"
+        tools:layout="@layout/fragment_user_added_offers" />
 </navigation>

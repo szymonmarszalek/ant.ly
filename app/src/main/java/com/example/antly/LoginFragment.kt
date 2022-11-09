@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.antly.common.Resource
+import com.example.antly.databinding.FragmentLoginBinding
+import com.example.antly.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 //
@@ -21,20 +23,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-
+    private var _binding: FragmentLoginBinding? = null
     private val loginViewModel: LoginViewModel by viewModels()
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(
-            R.layout.fragment_login,
-            container,
-            false
-        )
+
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
         val passwordInput = view.findViewById<EditText>(R.id.passwordInput)
 
         loginButton.setOnClickListener {
-            loginViewModel.login(loginInput.text.toString(), passwordInput.text.toString())
+            loginViewModel.login(binding.loginInput.text.toString(), binding.passwordInput.text.toString())
 
             loginViewModel.viewState.observe(viewLifecycleOwner) {
                 when(it) {
@@ -75,5 +75,6 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
     }
 }

@@ -5,12 +5,13 @@ import com.example.antly.data.dto.LoginResponseDto
 import com.example.antly.data.dto.Offer
 import com.example.antly.data.dto.OfferResponse
 import com.example.antly.data.dto.UserDto
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AntlyApi {
-
     @POST("auth/signin")
     suspend fun loginUser(
         @Body user: UserDto

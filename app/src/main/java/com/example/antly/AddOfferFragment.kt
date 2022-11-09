@@ -11,13 +11,17 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.antly.data.dto.Offer
+import com.example.antly.databinding.FragmentAddOfferBinding
+import com.example.antly.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddOfferFragment : Fragment() {
 
     private val viewModel: AddNewOfferViewModel by viewModels()
+    private var _binding: FragmentAddOfferBinding? = null
 
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,8 +31,10 @@ class AddOfferFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_offer, container, false)
+        _binding = FragmentAddOfferBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

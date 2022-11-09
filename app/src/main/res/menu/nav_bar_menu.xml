@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/useHome"
+        android:icon="@drawable/home_icon"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/useYourCourses"
+        android:icon="@drawable/student_icon"
+        android:title="@string/added_courses" />
+    <item
+        android:id="@+id/useNewOffer"
+        android:icon="@drawable/add_icon"
+        android:title="@string/add" />
+    <item
+        android:id="@+id/useBoughtCourses"
+        android:icon="@drawable/document_icon"
+        android:title="@string/bought_courses" />
+    <item
+        android:id="@+id/useAccount"
+        android:icon="@drawable/account_icon"
+        android:title="@string/account" />
+</menu>
