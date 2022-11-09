@@ -8,14 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.antly.data.RegisterData
-import com.example.antly.databinding.FragmentSecondBinding
+import com.example.antly.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SecondFragment : Fragment() {
-    private var _binding: FragmentSecondBinding? = null
+class RegistrationFragment : Fragment() {
+    private var _binding: FragmentRegistrationBinding? = null
 
     private val binding get() = _binding!!
     private val viewModel: RegisterViewModel by viewModels()
@@ -25,7 +24,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
 

@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/selectLyricsSearchPlayListContainer"
+            android:id="@+id/searchBarContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -39,8 +39,8 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="5dp"
                 android:background="@color/blue_dark"
-                android:hint="Wyszukaj"
                 android:focusable="false"
+                android:hint="@string/search_for_classes"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:textColor="@color/white"
@@ -59,6 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchBarConstraintLayout">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout5"
             android:layout_width="match_parent"
@@ -67,37 +68,109 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/searchForCoursesTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/search_for_classes"
+                android:textColor="@color/creme"
+                android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Spinner
-                android:id="@+id/spinner2"
+            <LinearLayout
+                android:id="@+id/subjectSpinnerContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/blue_dark"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/searchForCoursesTextView">
 
-            <Spinner
-                android:id="@+id/spinner3"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="@string/category"
+                    android:textColor="@color/creme" />
+
+                <Spinner
+                    android:id="@+id/subjectSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:popupBackground="@color/red"
+                    android:prompt="@string/add_new_offer" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/levelSpinnerContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/blue_dark"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+                app:layout_constraintTop_toBottomOf="@id/subjectSpinnerContainer">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="@string/level"
+                    android:textColor="@color/creme" />
+
+                <Spinner
+                    android:id="@+id/levelSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/localizationInputConstainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/blue_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/levelSpinnerContainer">
+
+                <EditText
+                    android:id="@+id/localizationInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@null"
+                    android:hint="@string/localization"
+                    android:paddingLeft="10dp"
+                    android:textColorHint="@color/creme"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+            </LinearLayout>
 
             <Button
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:backgroundTint="@color/blue_dark"
-                android:text="Szukaj"
+                android:text="@string/search"
                 android:textColor="@color/creme"
-                android:textSize="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+                android:textSize="8sp"
+                app:layout_constraintEnd_toEndOf="@+id/localizationInputConstainer"
+                app:layout_constraintTop_toBottomOf="@id/localizationInputConstainer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -115,21 +188,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:indeterminateTint="@color/red"
         android:minWidth="40dp"
         android:minHeight="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/addNewOfferButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_new_offer"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

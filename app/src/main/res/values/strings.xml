@@ -9,7 +9,7 @@
     <string name="register">Zarejestruj</string>
     <string name="login">Zaloguj</string>
     <string name="add_new_offer">Dodaj ofertę</string>
-    <string name="create_an_account">Załóż konto</string>
+    <string name="create_an_account">You do not have an account yet?</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_registration">RegistrationActivity</string>
@@ -22,9 +22,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
     <string name="added_courses">Added courses</string>
     <string name="home">home</string>
     <string name="add">Add</string>
     <string name="bought_courses">Bought courses</string>
     <string name="account">Account</string>
+    <string name="localization">Localization</string>
+    <string name="level">Level</string>
+    <string name="category">Category</string>
+    <string name="search_for_classes">Search for courses</string>
+    <string name="search">Search</string>
+
 </resources>

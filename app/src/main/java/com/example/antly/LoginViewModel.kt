@@ -25,13 +25,14 @@ class LoginViewModel @Inject constructor(
 
     fun login(nickname: String, password: String) {
         val userDto = UserDto(nickname,password)
-        println(userDto)
+
         loginUseCase(userDto).onEach {
             when(it) {
                 is Resource.Success -> {
                     sharedPreferencesService.saveApiToken(it.data!!)
                     _viewState.value = Resource.Success(it.data)
                 }
+                is Resource.Loading -> _viewState.value = Resource.Loading()
                 is Resource.Error ->  _viewState.value = Resource.Error("Nieudano")
             }
         }.launchIn(viewModelScope)

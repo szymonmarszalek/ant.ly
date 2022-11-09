@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.antly.data.dto.Offer
 import com.example.antly.databinding.FragmentAddOfferBinding
-import com.example.antly.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

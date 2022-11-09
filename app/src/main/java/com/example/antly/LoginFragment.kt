@@ -15,7 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.antly.common.Resource
 import com.example.antly.databinding.FragmentLoginBinding
-import com.example.antly.databinding.FragmentSecondBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 //
@@ -51,15 +50,23 @@ class LoginFragment : Fragment() {
             loginViewModel.viewState.observe(viewLifecycleOwner) {
                 when(it) {
                     is Resource.Success -> loginUser()
-                    is Resource.Loading -> println("ładowanie")
-                    is Resource.Error -> println(it.message)
+                    is Resource.Loading -> {
+                        println("LOADING")
+                        binding.progressBarCyclic.visibility = View.VISIBLE
+                        binding.loginContainer.visibility = View.GONE
+                    }
+                    is Resource.Error -> {
+                        println("ERROR")
+                        binding.progressBarCyclic.visibility = View.GONE
+                        binding.loginContainer.visibility = View.VISIBLE
+                    }
                 }
             }
         }
 
-        createAccountTextView.setOnClickListener {
+        binding.signUpTextView.setOnClickListener {
             requireActivity()
-                .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
+                .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_registration)
                 .findNavController()
                 .navigate(R.id.action_loginFragment_to_secondFragment)
         }
@@ -67,7 +74,6 @@ class LoginFragment : Fragment() {
 
     private fun loginUser() {
         val intent = Intent(requireContext(), MainActivity::class.java).apply {
-            flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
 
         startActivity(intent)
