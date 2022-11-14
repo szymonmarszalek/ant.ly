@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.antly.data.dto.Offer
 import com.example.antly.data.dto.OfferResponse
+import com.squareup.picasso.Picasso
 
 class AllOfferAdapter(private val allOffers: List<OfferResponse>) :
 RecyclerView.Adapter<AllOfferAdapter.ViewHolder>(){
@@ -24,9 +26,16 @@ RecyclerView.Adapter<AllOfferAdapter.ViewHolder>(){
 
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view) {
         fun bind(offer: OfferResponse) {
-            view.findViewById<TextView>(R.id.subjectTitleTextView).text = offer.title
-            view.findViewById<TextView>(R.id.subjectCategoryTextView).text = offer.subject
-            view.findViewById<TextView>(R.id.priceTextView).text = offer.price.toString() + " zł"
+            view.findViewById<TextView>(R.id.subjectTitleTextView).text = offer.subject
+            view.findViewById<TextView>(R.id.subjectTopicTextView).text = offer.title
+            view.findViewById<TextView>(R.id.offerLocation).text = offer.location
+            view.findViewById<TextView>(R.id.offerLevel).text = offer.range
+            view.findViewById<TextView>(R.id.offerPrice).text = offer.price.toString() + " zł"
+            Picasso
+                .get()
+                .load(offer.imageUrl)
+                .noPlaceholder()
+                .into(view.findViewById<ImageView>(R.id.offerImage))
         }
     }
 

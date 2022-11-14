@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.antly.common.Resource
 import com.example.antly.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -24,7 +26,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -34,6 +36,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAllOffers()
+        var layoutManagerOffer: LinearLayoutManager? =
+            GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         var offersAdapter: AllOfferAdapter? = null
         viewModel.viewState.observe(viewLifecycleOwner) {
             when (it) {
@@ -41,7 +45,7 @@ class MainFragment : Fragment() {
                     binding.progressBarCyclic.visibility = View.GONE
                     offersAdapter = it.data?.let { it1 -> AllOfferAdapter(it1) }
                     binding.recycleView.apply {
-                        layoutManager = LinearLayoutManager(context)
+                        layoutManager = layoutManagerOffer
                         adapter = offersAdapter
                     }
                 }
