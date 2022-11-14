@@ -26,7 +26,11 @@
         android:id="@+id/useNewOffer"
         android:name="com.example.antly.AddOfferFragment"
         android:label="fragment_add_offer"
-        tools:layout="@layout/fragment_add_offer" />
+        tools:layout="@layout/fragment_add_offer" >
+        <action
+            android:id="@+id/action_useNewOffer_to_useHome"
+            app:destination="@id/useHome" />
+    </fragment>
     <fragment
         android:id="@+id/useYourCourses"
         android:name="com.example.antly.UserAddedOffersFragment"

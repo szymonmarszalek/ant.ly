@@ -26,10 +26,7 @@ class AddNewOfferViewModel @Inject constructor(val addOfferUseCase: AddOfferUseC
                     _viewState.value = Resource.Success(it.data!!)
                 }
                 is Resource.Error ->  _viewState.value = Resource.Error("NieudanoVM")
-                else -> {
-                    println(it)
-                    println("INNE")
-                }
+                is Resource.Loading -> _viewState.value = Resource.Loading()
             }
         }.launchIn(viewModelScope)
     }

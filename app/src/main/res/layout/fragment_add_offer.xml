@@ -6,47 +6,122 @@
     android:layout_height="match_parent"
     tools:context=".AddOfferFragment">
 
-    <EditText
-        android:id="@+id/subjectTitle"
-        android:layout_width="300dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:text="@string/addingOffer"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/addOfferContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addOfferContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/subjectTitle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/title"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/creme"
+            app:endIconTint="@color/creme"
+            android:foregroundTint="@color/light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/subjectInputTextField"
+                f
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/subjectTitle"
+            tools:layout_editor_absoluteX="50dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/subjectDescription"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/description"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
+            app:layout_constraintStart_toStartOf="@+id/categorySpinner"
+            app:layout_constraintTop_toBottomOf="@+id/categorySpinner">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/subjectDescriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/price"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/price_string"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
+            app:layout_constraintStart_toStartOf="@+id/subjectTitle"
+            app:layout_constraintTop_toBottomOf="@+id/subjectDescription">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/priceInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/addOffer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_offer"
+            app:layout_constraintEnd_toEndOf="@+id/price"
+            app:layout_constraintStart_toStartOf="@+id/price"
+            app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar_cyclic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:indeterminateTint="@color/red"
+        android:minWidth="40dp"
+        android:minHeight="40dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/subjectDescription"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
-        app:layout_constraintStart_toStartOf="@+id/subjectTitle"
-        app:layout_constraintTop_toBottomOf="@+id/subjectTitle" />
-
-    <EditText
-        android:id="@+id/subjectCategory"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
-        app:layout_constraintStart_toStartOf="@+id/subjectTitle"
-        app:layout_constraintTop_toBottomOf="@+id/subjectDescription" />
-
-    <EditText
-        android:id="@+id/price"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
-        app:layout_constraintStart_toStartOf="@+id/subjectTitle"
-        app:layout_constraintTop_toBottomOf="@+id/subjectCategory" />
-
-    <Button
-        android:id="@+id/addOffer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_new_offer"
-        app:layout_constraintEnd_toEndOf="@+id/price"
-        app:layout_constraintStart_toStartOf="@+id/price"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@
     <string name="previous">Previous</string>
     <string name="register">Zarejestruj</string>
     <string name="login">Zaloguj</string>
-    <string name="add_new_offer">Dodaj ofertę</string>
+    <string name="add_new_offer">Add offer</string>
     <string name="create_an_account">You do not have an account yet?</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
@@ -16,7 +16,7 @@
 
 
     <!-- offer_element !-->
-    <string name="title">Tytuł</string>
+    <string name="title">Title</string>
     <string name="subject">Przedmiot</string>
     <string name="price">0 zł</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -33,5 +33,8 @@
     <string name="category">Category</string>
     <string name="search_for_classes">Search for courses</string>
     <string name="search">Search</string>
+    <string name="description">Description</string>
+    <string name="price_string">Price</string>
+    <string name="addingOffer">You are adding an offer</string>
 
 </resources>
