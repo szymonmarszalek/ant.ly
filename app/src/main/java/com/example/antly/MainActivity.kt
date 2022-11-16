@@ -1,13 +1,21 @@
 package com.example.antly
 
+
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.example.antly.databinding.ActivityMainBinding
+import com.google.android.gms.common.api.Status
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 @AndroidEntryPoint

@@ -21,6 +21,12 @@
         <action
             android:id="@+id/action_useHome_to_useBoughtCourses"
             app:destination="@id/useBoughtCourses" />
+        <action
+            android:id="@+id/action_useHome_to_subjectsFragment"
+            app:destination="@id/subjectsFragment" />
+        <action
+            android:id="@+id/action_useHome_to_levelFragment"
+            app:destination="@id/levelFragment" />
     </fragment>
     <fragment
         android:id="@+id/useNewOffer"
@@ -48,4 +54,22 @@
         android:name="com.example.antly.UserBoughtOffersFragment"
         android:label="fragment_user_added_offers"
         tools:layout="@layout/fragment_user_added_offers" />
+    <fragment
+        android:id="@+id/subjectsFragment"
+        android:name="com.example.antly.SubjectsFragment"
+        android:label="fragment_subjects"
+        tools:layout="@layout/fragment_subjects" >
+        <action
+            android:id="@+id/action_subjectsFragment_to_useHome"
+            app:destination="@id/useHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/levelFragment"
+        android:name="com.example.antly.LevelFragment"
+        android:label="fragment_level"
+        tools:layout="@layout/fragment_level" >
+        <action
+            android:id="@+id/action_levelFragment_to_useHome"
+            app:destination="@id/useHome" />
+    </fragment>
 </navigation>

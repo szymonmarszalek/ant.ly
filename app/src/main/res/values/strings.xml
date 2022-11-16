@@ -36,5 +36,6 @@
     <string name="description">Description</string>
     <string name="price_string">Price</string>
     <string name="addingOffer">You are adding an offer</string>
+    <string name="subject_category">Subject category</string>
 
 </resources>
