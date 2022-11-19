@@ -4,123 +4,368 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/creme"
     tools:context=".AddOfferFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="15dp"
-        android:text="@string/addingOffer"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/addOfferContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/addOfferContainer"
+    <ScrollView
+        android:id="@+id/AddOfferScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingEnd="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/subjectTitle"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/title"
-            app:endIconMode="clear_text"
-            app:hintTextColor="@color/creme"
-            app:endIconTint="@color/creme"
-            android:foregroundTint="@color/light_blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/subjectInputTextField"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:text="@string/addingOffer"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addOfferContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/creme"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/subjectTitle"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:foregroundTint="@color/green_light"
+                    android:hint="@string/title"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <Spinner
-            android:id="@+id/categorySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/subjectTitle"
-            tools:layout_editor_absoluteX="50dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/subjectInputTextField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="30" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/subjectDescription"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/description"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
-            app:layout_constraintStart_toStartOf="@+id/categorySpinner"
-            app:layout_constraintTop_toBottomOf="@+id/categorySpinner">
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/subjectDescriptionInput"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/subjectTitle">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/requiredTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/required"
+                        android:textColor="@color/red"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/price"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/price_string"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
-            app:layout_constraintStart_toStartOf="@+id/subjectTitle"
-            app:layout_constraintTop_toBottomOf="@+id/subjectDescription">
+                    <TextView
+                        android:id="@+id/maxOfSignsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/max_of_signs_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/priceInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pictureUrl"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foregroundTint="@color/green_light"
+                    android:hint="@string/picture_url"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pictureUrlTextField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#808080" />
 
-        <Button
-            android:id="@+id/addOffer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_new_offer"
-            app:layout_constraintEnd_toEndOf="@+id/price"
-            app:layout_constraintStart_toStartOf="@+id/price"
-            app:layout_constraintTop_toBottomOf="@+id/price" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/requiredPictureUrl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/required"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/pictureUrl"
+                    app:layout_constraintTop_toBottomOf="@id/pictureUrl" />
 
-    <ProgressBar
-        android:id="@+id/progressBar_cyclic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:indeterminateTint="@color/red"
-        android:minWidth="40dp"
-        android:minHeight="40dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/categoryContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/frame"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/requiredPictureUrl">
 
+                    <TextView
+                        android:id="@+id/categoryTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="15dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:text="@string/category"
+                        android:textColor="#808080"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/requiredSubject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/required"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/pictureUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/categoryContainer" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/levelContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/frame"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/requiredSubject">
+
+                    <TextView
+                        android:id="@+id/levelTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="15dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:text="@string/level"
+                        android:textColor="#808080"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5" />
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/requiredLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/required"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/pictureUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/levelContainer" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/localizationInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/frame"
+                    android:hint="@string/localization"
+                    android:paddingStart="10dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp"
+                    android:popupBackground="@color/red"
+                    android:textColor="@color/black"
+                    android:textColorHint="#808080"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/requiredLevel" />
+
+                <TextView
+                    android:id="@+id/requiredLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/required"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/pictureUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/localizationInput" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/subjectDescription"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="@string/short_description"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
+                    app:layout_constraintStart_toStartOf="@+id/categoryContainer"
+                    app:layout_constraintTop_toBottomOf="@+id/requiredLocation">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/offerShortDescriptionTextField"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLength="70" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/requiredShortDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/required"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/pictureUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/subjectDescription" />
+                <TextView
+                    android:id="@+id/maxOfSignsShort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/max_of_signs_short_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@+id/subjectDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/subjectDescriptionLong"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:hint="@string/long_description"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/subjectTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/maxOfSignsShort">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/offerLongDescriptionTextField"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLength="200" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/requiredLongDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/required"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/pictureUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/subjectDescriptionLong" />
+                <TextView
+                    android:id="@+id/maxOfSignsLong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/max_of_signs_long_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/subjectDescriptionLong" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/price"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/price_string"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:layout_constraintTop_toBottomOf="@+id/maxOfSignsLong">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/offerPriceTextField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/requiredPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/required"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/pictureUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/price" />
+
+                <Button
+                    android:id="@+id/addOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_new_offer"
+                    app:layout_constraintEnd_toEndOf="@+id/price"
+                    app:layout_constraintStart_toStartOf="@+id/price"
+                    app:layout_constraintTop_toBottomOf="@+id/requiredPrice" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar_cyclic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:indeterminateTint="@color/red"
+                android:minWidth="40dp"
+                android:minHeight="40dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

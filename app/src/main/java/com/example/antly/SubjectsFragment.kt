@@ -7,20 +7,26 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.antly.data.dto.SubjectCategory
 import com.example.antly.databinding.FragmentSubjectsBinding
 
 class SubjectsFragment : Fragment() {
-
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val sharedAddOfferViewModel: AddOfferSharedViewModel by activityViewModels()
     private var _binding: FragmentSubjectsBinding? = null
     private val binding get() = _binding!!
     private var bundle: Bundle? = null
+    private var typeOfChoosing: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getCategories()
+        typeOfChoosing = arguments?.getString("type_of_choosing_subject")
+        println("tutaj" + typeOfChoosing)
 
     }
 
@@ -50,12 +56,20 @@ class SubjectsFragment : Fragment() {
     }
 
     private fun chooseCategory(category: String) {
-        val bundle = bundleOf("subject" to category)
-            println(category)
+
+        if (typeOfChoosing == "find_offer") {
+            sharedViewModel.subject.value = category
             requireActivity()
                 .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
                 .findNavController()
-                .navigate(R.id.action_subjectsFragment_to_useHome,bundle)
+                .navigate(R.id.action_subjectsFragment_to_useHome)
+        } else {
+            sharedAddOfferViewModel.offerSubject.value = category
+            requireActivity()
+                .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
+                .findNavController()
+                .navigate(R.id.action_subjectsFragment_to_useNewOffer)
+        }
     }
 
     companion object {

@@ -7,35 +7,48 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.antly.data.dto.Offer
 import com.example.antly.data.dto.OfferResponse
 import com.squareup.picasso.Picasso
 
-class AllOfferAdapter(private val allOffers: List<OfferResponse>) :
-RecyclerView.Adapter<AllOfferAdapter.ViewHolder>(){
+class AllOfferAdapter(
+    private val allOffers: List<OfferResponse>,
+    private val offer: (OfferResponse) -> Unit,
+) :
+    RecyclerView.Adapter<AllOfferAdapter.ViewHolder>() {
 
     private val allOffersList = mutableListOf<OfferResponse>()
+
     @SuppressLint("NotifyDataSetChanged")
     fun setOfferList(allOffers: List<OfferResponse>) {
-        if(allOffersList.isNotEmpty())
+        if (allOffersList.isNotEmpty())
             allOffersList.clear()
 
         allOffersList.addAll(allOffers)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(
+        val view: View,
+        private val offer: (OfferResponse) -> Unit,
+    ) : RecyclerView.ViewHolder(view) {
         fun bind(offer: OfferResponse) {
             view.findViewById<TextView>(R.id.subjectTitleTextView).text = offer.subject
             view.findViewById<TextView>(R.id.subjectTopicTextView).text = offer.title
             view.findViewById<TextView>(R.id.offerLocation).text = offer.location
             view.findViewById<TextView>(R.id.offerLevel).text = offer.range
-            view.findViewById<TextView>(R.id.offerPrice).text = offer.price.toString() + " zł"
+            view.findViewById<TextView>(R.id.offerPrice).text = offer.price.toString() + " £"
             Picasso
                 .get()
                 .load(offer.imageUrl)
+                .error(R.drawable.student_icon)
                 .noPlaceholder()
                 .into(view.findViewById<ImageView>(R.id.offerImage))
+        }
+
+        fun clickOnOffer(offer: OfferResponse) {
+            view.setOnClickListener {
+                offer(offer)
+            }
         }
     }
 
@@ -46,11 +59,12 @@ RecyclerView.Adapter<AllOfferAdapter.ViewHolder>(){
             false
         )
 
-        return ViewHolder(inflatedView)
+        return ViewHolder(inflatedView, offer)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(allOffers[position])
+        holder.clickOnOffer(allOffers[position])
     }
 
     override fun getItemCount(): Int {

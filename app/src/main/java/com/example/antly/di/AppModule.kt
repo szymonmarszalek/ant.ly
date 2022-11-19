@@ -1,8 +1,10 @@
 package com.example.antly.di
 
 import android.content.Context
+import com.example.antly.AddOfferSharedViewModel
 import com.example.antly.ApiConnection.AntlyApi
 import com.example.antly.ApiConnection.BuildHttpClient
+import com.example.antly.SharedViewModel
 import com.example.antly.common.Constants
 import com.example.antly.domain.repository.LoginRepository
 import com.example.antly.domain.repository.OffersRepository
@@ -56,5 +58,17 @@ object AppModule {
     @Singleton
     fun provideHttpClient(sharedPreferencesService: SharedPreferencesService): BuildHttpClient {
         return BuildHttpClient(sharedPreferencesService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedViewModel(): SharedViewModel {
+        return SharedViewModel()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddOfferSharedViewModel(): AddOfferSharedViewModel {
+        return AddOfferSharedViewModel()
     }
 }

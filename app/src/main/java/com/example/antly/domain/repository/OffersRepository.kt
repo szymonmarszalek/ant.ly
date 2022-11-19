@@ -8,4 +8,7 @@ interface OffersRepository {
     suspend fun getAllOffers(): List<OfferResponse>
 
     suspend fun addNewOffer(offer: Offer): OfferResponse
+
+    suspend fun getFilteredOffers(range: kotlin.String, subject: kotlin.String, location: kotlin.String): List<OfferResponse>
+
 }

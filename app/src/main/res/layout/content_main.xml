@@ -9,7 +9,7 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/light_blue"
+        android:background="@color/green_light"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_dark"
+        android:background="@color/green_dark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@color/creme"
         app:labelVisibilityMode="unlabeled"

@@ -9,7 +9,7 @@
         android:id="@+id/subject_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:backgroundTint="@color/blue_main"
+        android:backgroundTint="@color/green_main"
         android:background="@drawable/hammer_screwdriver"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         android:id="@+id/arrow"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:backgroundTint="@color/blue_dark"
+        android:backgroundTint="@color/green_dark"
         android:background="@drawable/chevron_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

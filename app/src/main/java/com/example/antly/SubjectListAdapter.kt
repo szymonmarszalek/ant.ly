@@ -4,18 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat.setBackground
 import androidx.recyclerview.widget.RecyclerView
-import com.example.antly.data.dto.OfferResponse
 import com.example.antly.data.dto.SubjectCategory
-import com.squareup.picasso.Picasso
 
-class SubjectListAdapter(val subject: (String) -> Unit) :
+class SubjectListAdapter(val subject: (kotlin.String) -> Unit) :
 RecyclerView.Adapter<SubjectListAdapter.ViewHolder>(){
 
     private val subjectCategories = mutableListOf<SubjectCategory>()
@@ -29,7 +24,7 @@ RecyclerView.Adapter<SubjectListAdapter.ViewHolder>(){
     }
 
     class ViewHolder(val view: View,
-                     val subject: (String) -> Unit
+                     val subject: (kotlin.String) -> Unit
     ): RecyclerView.ViewHolder(view) {
         fun bind(category: SubjectCategory) {
             view.findViewById<TextView>(R.id.subject_category).text = category.categoryName

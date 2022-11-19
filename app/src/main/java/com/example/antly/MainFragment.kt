@@ -1,21 +1,25 @@
 package com.example.antly
 
-
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.antly.common.Resource
+import com.example.antly.data.dto.OfferResponse
 import com.example.antly.databinding.FragmentMainBinding
+import com.example.antly.helpers.SoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import org.json.JSONException
@@ -25,17 +29,22 @@ import java.io.IOException
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
+
+
+    val sharedViewModel: SharedViewModel by activityViewModels()
+
+
     private val viewModel: MainViewModel by viewModels()
-    var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private var subject: String? = null
     private var level: String? = null
+    private var location: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val chosenSubject = arguments?.getString("subject")
-        val level = arguments?.getString("level")
-        subject = chosenSubject
-        this.level = level
+
+        //typeOfChoosing = arguments?.getString("subject")
     }
 
     override fun onCreateView(
@@ -44,22 +53,35 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAllOffers()
-        var layoutManagerOffer: LinearLayoutManager? =
+
+        val layoutManagerOffer: LinearLayoutManager =
             GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         var offersAdapter: AllOfferAdapter?
 
-        viewModel.viewState.observe(viewLifecycleOwner) {
+
+        level = sharedViewModel.range.value
+        subject = sharedViewModel.subject.value
+        location = sharedViewModel.localization.value
+
+        binding.localizationInput.onItemClickListener = OnItemClickListener { _, _, _, _ ->
+            sharedViewModel.localization.value = binding.localizationInput.text.toString()
+            location = binding.localizationInput.text.toString()
+            searchForOffers()
+        }
+
+        viewModel.viewAllOfferState.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBarCyclic.visibility = View.GONE
-                    offersAdapter = it.data?.let { it1 -> AllOfferAdapter(it1) }
+                    offersAdapter = it.data?.let { it1 -> AllOfferAdapter(it1) {
+                        showOfferDetails(it)
+                    }
+                    }
                     binding.recycleView.apply {
                         layoutManager = layoutManagerOffer
                         adapter = offersAdapter
@@ -71,18 +93,20 @@ class MainFragment : Fragment() {
         }
 
         binding.subjectSpinnerContainer.setOnClickListener {
+            val bundle = bundleOf("type_of_choosing_subject" to "find_offer")
             requireActivity()
                 .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
                 .findNavController()
-                .navigate(R.id.action_useHome_to_subjectsFragment)
+                .navigate(R.id.action_useHome_to_subjectsFragment, bundle)
         }
 
 
         binding.levelContainer.setOnClickListener {
+            val bundle = bundleOf("type_of_choosing_level" to "find_offer")
             requireActivity()
                 .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
                 .findNavController()
-                .navigate(R.id.action_useHome_to_levelFragment)
+                .navigate(R.id.action_useHome_to_levelFragment, bundle)
         }
 
         if (subject != null) {
@@ -102,9 +126,15 @@ class MainFragment : Fragment() {
 
         binding.localizationInput.setAdapter(adapter)
 
+        searchForOffers()
+
         binding.searchEditText.setOnClickListener {
-            binding.searchBarContainer.startAnimation(AnimationUtils.loadAnimation(context,
-                R.anim.sliding))
+            binding.searchBarContainer.startAnimation(
+                AnimationUtils.loadAnimation(context,
+                    R.anim.sliding
+                )
+            )
+
             binding.searchBarConstraintLayout.visibility = View.GONE
             binding.addDetailsContainer.visibility = View.VISIBLE
             binding.searchBarConstraintLayout.startAnimation(
@@ -129,6 +159,41 @@ class MainFragment : Fragment() {
                 )
             )
             binding.addDetailsContainer.visibility = View.GONE
+        }
+    }
+
+    private fun showOfferDetails(offerId: OfferResponse) {
+        val bundle = Bundle()
+        bundle.putParcelable("offer", offerId)
+        requireActivity()
+            .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
+            .findNavController()
+            .navigate(R.id.action_useHome_to_offerDetailsFragment, bundle)
+    }
+
+    private fun cleanValues() {
+        subject = null
+        level = null
+        location = null
+        sharedViewModel.cleanValues()
+    }
+
+    private fun searchForOffers() {
+        if ((subject != null) && (level != null) && (location != null)) {
+            viewModel.getFilteredOffers(level!!, subject!!, location!!)
+            SoftKeyboard.hide(requireActivity())
+            binding.searchBarConstraintLayout.visibility = View.VISIBLE
+            binding.addDetailsContainer.startAnimation(
+                AnimationUtils.loadAnimation(
+                    context,
+                    R.anim.hide
+                )
+            )
+            binding.addDetailsContainer.visibility = View.GONE
+
+            cleanValues()
+        } else {
+            viewModel.getAllOffers()
         }
     }
 
@@ -163,6 +228,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        sharedViewModel.cleanValues()
         _binding = null
     }
 }
