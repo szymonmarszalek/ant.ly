@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -16,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.antly.common.Resource
 import com.example.antly.data.dto.OfferResponse
 import com.example.antly.databinding.FragmentMainBinding
@@ -32,8 +34,6 @@ class MainFragment : Fragment() {
 
 
     val sharedViewModel: SharedViewModel by activityViewModels()
-
-
     private val viewModel: MainViewModel by viewModels()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -61,10 +61,10 @@ class MainFragment : Fragment() {
 
         val layoutManagerOffer: LinearLayoutManager =
             GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-        var offersAdapter: AllOfferAdapter?
-
+        var offersAdapter = AllOfferAdapter { it -> showOfferDetails(it) }
 
         level = sharedViewModel.range.value
+        println("LEVEL" + level)
         subject = sharedViewModel.subject.value
         location = sharedViewModel.localization.value
 
@@ -77,15 +77,12 @@ class MainFragment : Fragment() {
         viewModel.viewAllOfferState.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    binding.progressBarCyclic.visibility = View.GONE
-                    offersAdapter = it.data?.let { it1 -> AllOfferAdapter(it1) {
-                        showOfferDetails(it)
-                    }
-                    }
                     binding.recycleView.apply {
+                        binding.progressBarCyclic.visibility = View.GONE
                         layoutManager = layoutManagerOffer
                         adapter = offersAdapter
                     }
+                    offersAdapter.setOfferList(it.data!!)
                 }
                 is Resource.Loading -> binding.progressBarCyclic.visibility = View.VISIBLE
                 is Resource.Error -> binding.progressBarCyclic.visibility = View.GONE
@@ -228,7 +225,6 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        sharedViewModel.cleanValues()
         _binding = null
     }
 }

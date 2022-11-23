@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class SharedViewModel: ViewModel() {
-     val subject = MutableLiveData<kotlin.String>()
-     val range = MutableLiveData<kotlin.String>()
-     val localization = MutableLiveData<kotlin.String>()
+     val subject = MutableLiveData<String?>()
+     val range = MutableLiveData<String?>()
+     val localization = MutableLiveData<String?>()
 
      fun cleanValues() {
           subject.value = null

@@ -9,6 +9,17 @@ interface OffersRepository {
 
     suspend fun addNewOffer(offer: Offer): OfferResponse
 
-    suspend fun getFilteredOffers(range: kotlin.String, subject: kotlin.String, location: kotlin.String): List<OfferResponse>
+    suspend fun getFilteredOffers(
+        range: String,
+        subject: String,
+        location: String,
+    ): List<OfferResponse>
 
+    suspend fun getAddedOffers(
+        teacherName: String,
+    ): List<OfferResponse>
+
+    suspend fun deleteOffer(
+        offerId: Int,
+    )
 }

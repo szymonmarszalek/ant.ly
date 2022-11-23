@@ -4,31 +4,35 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.antly.data.dto.OfferResponse
 import com.squareup.picasso.Picasso
 
-class AllOfferAdapter(
+class AddedOfferAdapter(
     private val offer: (OfferResponse) -> Unit,
+    private val deleteOffer: (OfferResponse) -> Unit
 ) :
-    RecyclerView.Adapter<AllOfferAdapter.ViewHolder>() {
+    RecyclerView.Adapter<AddedOfferAdapter.ViewHolder>() {
 
-    private val allOffersList = mutableListOf<OfferResponse>()
+    private val addedOfferList = mutableListOf<OfferResponse>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setOfferList(allOffers: List<OfferResponse>) {
-        if (allOffersList.isNotEmpty())
-            allOffersList.clear()
+    fun setAddedOfferList(allOffers: List<OfferResponse>) {
+        if (addedOfferList.isNotEmpty())
+            addedOfferList.clear()
 
-        allOffersList.addAll(allOffers)
+        addedOfferList.addAll(allOffers)
         notifyDataSetChanged()
     }
 
     class ViewHolder(
         val view: View,
         private val offer: (OfferResponse) -> Unit,
+        private val deleteOffer: (OfferResponse) -> Unit,
     ) : RecyclerView.ViewHolder(view) {
         fun bind(offer: OfferResponse) {
             view.findViewById<TextView>(R.id.subjectTitleTextView).text = offer.subject
@@ -48,25 +52,28 @@ class AllOfferAdapter(
             view.setOnClickListener {
                 offer(offer)
             }
+            view.findViewById<ImageButton>(R.id.deleteOfferButton).setOnClickListener {
+                deleteOffer(offer)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context).inflate(
-            R.layout.offer_element,
+            R.layout.added_offer_element,
             parent,
             false
         )
 
-        return ViewHolder(inflatedView, offer)
+        return ViewHolder(inflatedView, offer, deleteOffer)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(allOffersList[position])
-        holder.clickOnOffer(allOffersList[position])
+        holder.bind(addedOfferList[position])
+        holder.clickOnOffer(addedOfferList[position])
     }
 
     override fun getItemCount(): Int {
-        return allOffersList.size
+        return addedOfferList.size
     }
 }

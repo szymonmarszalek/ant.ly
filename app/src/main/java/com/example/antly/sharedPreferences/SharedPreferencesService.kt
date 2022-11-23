@@ -2,6 +2,7 @@ package com.example.antly.sharedPreferences
 
 import android.content.Context
 import com.example.antly.sharedPreferences.data.ApiTokenSharedPreference
+import com.example.antly.sharedPreferences.data.LoggedUsernameSharedPreference
 import javax.inject.Inject
 
 class SharedPreferencesService @Inject constructor(
@@ -30,6 +31,17 @@ class SharedPreferencesService @Inject constructor(
     fun saveApiToken(apiToken: String) {
         val apiTokenSharedPreference = ApiTokenSharedPreference()
         apiTokenSharedPreference.value = apiToken
+
+        setSharedPreference(apiTokenSharedPreference)
+    }
+
+    fun getLoggedUsername(): String {
+        return getSharedPreference(LoggedUsernameSharedPreference())
+    }
+
+    fun saveLoggedUsername(username: String) {
+        val apiTokenSharedPreference = LoggedUsernameSharedPreference()
+        apiTokenSharedPreference.value = username
 
         setSharedPreference(apiTokenSharedPreference)
     }

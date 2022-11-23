@@ -17,10 +17,20 @@ class OffersRepositoryImpl @Inject constructor(val api: AntlyApi) : OffersReposi
     }
 
     override suspend fun getFilteredOffers(
-        range: kotlin.String,
-        subject: kotlin.String,
-        location: kotlin.String,
+        range: String,
+        subject: String,
+        location: String,
     ): List<OfferResponse> {
         return api.getFilteredOffers(subject, range, location)
+    }
+
+    override suspend fun getAddedOffers(
+        teacherName: String,
+    ): List<OfferResponse> {
+        return api.getAddedOffers(teacherName)
+    }
+
+    override suspend fun deleteOffer(offerId: Int) {
+        return api.deleteOffer(offerId)
     }
 }

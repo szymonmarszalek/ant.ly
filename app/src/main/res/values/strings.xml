@@ -48,5 +48,21 @@
     <string name="show_details">Show details</string>
     <string name="nickname">smarszalek</string>
     <string name="primary_school">Primary School</string>
+    <string name="delete_offer">X</string>
+    <string name="your_offers">Your offers</string>
+    <string name="delete_offer_confirmation">Are you sure you want to delete this offer?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="no_offers">You have not added any offer yet</string>
+    <string name="hello">Hello</string>
+    <string name="added_offers">YOUR ADDED OFFERS</string>
+    <string name="username">smarszalek</string>
+    <string name="favorite_offers">YOUR FAVORITE OFFERS</string>
+    <string name="help">Help</string>
+    <string name="rules">Rules</string>
+    <string name="contact">Contact</string>
+    <string name="about_app">About application</string>
+    <string name="settings_and_informations">Settings and informations</string>
+    <string name="logout">Log out</string>
 
 </resources>

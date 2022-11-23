@@ -5,10 +5,7 @@ import com.example.antly.data.dto.LoginResponseDto
 import com.example.antly.data.dto.Offer
 import com.example.antly.data.dto.OfferResponse
 import com.example.antly.data.dto.UserDto
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface AntlyApi {
     @POST("auth/signin")
@@ -17,7 +14,7 @@ interface AntlyApi {
     ): LoginResponseDto
 
     @POST("auth/signup")
-    suspend fun registerUser(@Body registerData: RegisterData): kotlin.String
+    suspend fun registerUser(@Body registerData: RegisterData): String
 
     @GET("/offers")
     suspend fun getAllOffers(): List<OfferResponse>
@@ -25,10 +22,20 @@ interface AntlyApi {
     @POST("/offers")
     suspend fun postOffer(@Body offer: Offer): OfferResponse
 
-    @GET("offers")
+    @GET("/offers")
     suspend fun getFilteredOffers(
-        @Query("subject") subject: kotlin.String,
-        @Query("range") range: kotlin.String,
-        @Query("location") location: kotlin.String,
+        @Query("subject") subject: String,
+        @Query("range") range: String,
+        @Query("location") location: String,
     ): List<OfferResponse>
+
+    @GET("/offers/teacher/{teachername}")
+    suspend fun getAddedOffers(
+        @Path("teachername") teacherName: String,
+    ): List<OfferResponse>
+
+    @DELETE("/offers/{id}")
+    suspend fun deleteOffer(
+        @Path("id") offerId: Int,
+    )
 }

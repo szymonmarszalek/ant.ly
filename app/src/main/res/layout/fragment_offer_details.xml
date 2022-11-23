@@ -26,6 +26,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                app:layout_constraintStart_toStartOf="@+id/offerImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/offerDetailsTopContainer"
                 android:layout_width="match_parent"
@@ -45,8 +56,8 @@
                         android:id="@+id/offerDetailsTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginBottom="15dp"
                         android:fontFamily="@font/opensans_regular"
                         android:text="@string/subject"
                         android:textColor="@color/black"
@@ -64,8 +75,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/offerDetailsTagsRecycleView"
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
                         android:orientation="vertical"
                         tools:listitem="@layout/offer_details_tag_element" />
 
@@ -84,9 +95,9 @@
                     android:id="@+id/offerShortDescriptionContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:background="@color/creme_dark"
                     android:orientation="vertical"
-                    android:layout_marginBottom="20dp"
                     android:padding="10dp">
 
                     <LinearLayout
@@ -154,7 +165,8 @@
                         android:layout_marginBottom="20dp"
                         android:background="@color/creme_dark"
                         android:orientation="vertical"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/offerLongDescriptionDescriptionTitleTextView"
@@ -207,15 +219,16 @@
                         android:id="@+id/offerDetailsTeacherContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:background="@drawable/search_input_style"
                         android:backgroundTint="@color/creme_dark"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
                         <View
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/ic_baseline_person_outline_24"/>
+                            android:background="@drawable/ic_baseline_person_outline_24" />
 
                         <TextView
                             android:id="@+id/offerDetailsTeacherTextView"
