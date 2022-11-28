@@ -5,5 +5,5 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/opensans_regular" />
+        android:font="@font/mulish" />
 </font-family>

@@ -10,6 +10,7 @@
         android:id="@+id/signInMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/mulish"
         android:text="@string/sign_in"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -22,41 +23,85 @@
         android:id="@+id/loginContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <EditText
-            android:id="@+id/loginInput"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:foregroundTint="@color/green_light"
+            android:hint="@string/login"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/passwordInput"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="@color/black"
+                android:fontFamily="@font/mulish"
+                android:maxLength="30" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintStart_toStartOf="@+id/loginInput"
-            app:layout_constraintTop_toBottomOf="@+id/loginInput" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:foregroundTint="@color/green_light"
+            android:hint="@string/password"
+            app:endIconMode="clear_text"
+            app:layout_constraintStart_toStartOf="@+id/loginTextField"
+            app:layout_constraintTop_toBottomOf="@+id/loginTextField"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mulish"
+                android:inputType="textPassword"
+                android:maxLength="30" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/errorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mulish"
+            android:text="@string/incorrect_login_or_password"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:visibility="gone"
+
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordTextField" />
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:backgroundTint="@color/green_dark"
+            android:clickable="false"
+            android:fontFamily="@font/mulish"
             android:text="@string/sign_in"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordInput">
+            app:layout_constraintTop_toBottomOf="@+id/errorTextView">
 
         </Button>
 
@@ -71,6 +116,7 @@
                 android:id="@+id/createAccountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
+                android:fontFamily="@font/mulish"
                 android:text="@string/create_an_account" />
 
             <TextView
@@ -78,6 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:fontFamily="@font/mulish"
                 android:text="@string/sign_up"
                 android:textColor="@color/red"
                 android:textStyle="bold" />

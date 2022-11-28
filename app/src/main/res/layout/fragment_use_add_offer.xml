@@ -6,13 +6,13 @@
     android:background="@color/creme">
 
     <fragment
-        android:id="@+id/nav_host_all_offers"
+        android:id="@+id/nav_host_add_offer"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/all_offers_nav" />
+        app:navGraph="@navigation/add_offer_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

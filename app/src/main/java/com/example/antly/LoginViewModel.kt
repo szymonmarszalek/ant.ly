@@ -38,13 +38,14 @@ class LoginViewModel @Inject constructor(
                     val username = JSONObject(decodedApiKey).getString("username")
                     println(username)
                     sharedPreferencesService.saveLoggedUsername(username)
+                    sharedPreferencesService.saveLoggedUserPassword(userDto.password)
                     sharedPreferencesService.saveApiToken(it.data)
                     println(sharedPreferencesService.getLoggedUsername())
 
                     _viewState.value = Resource.Success(it.data)
                 }
                 is Resource.Loading -> _viewState.value = Resource.Loading()
-                is Resource.Error ->  _viewState.value = Resource.Error("Nieudano")
+                is Resource.Error ->  _viewState.value = Resource.Error(it.message!!)
             }
         }.launchIn(viewModelScope)
     }

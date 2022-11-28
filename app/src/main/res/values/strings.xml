@@ -6,8 +6,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="register">Zarejestruj</string>
-    <string name="login">Zaloguj</string>
+    <string name="register">Register</string>
+    <string name="login">Username</string>
     <string name="add_new_offer">Add offer</string>
     <string name="create_an_account">You do not have an account yet?</string>
     <string name="hello_first_fragment">Hello first fragment</string>
@@ -36,6 +36,7 @@
     <string name="description">Description</string>
     <string name="price_string">Price</string>
     <string name="addingOffer">Add an offer</string>
+    <string name="editingOffer">Edit an offer</string>
     <string name="subject_category">Subject category</string>
     <string name="max_of_signs_title">0/30</string>
     <string name="required">*Required</string>
@@ -64,5 +65,17 @@
     <string name="about_app">About application</string>
     <string name="settings_and_informations">Settings and informations</string>
     <string name="logout">Log out</string>
+    <string name="edit_offer">Edit offer</string>
+    <string name="delete_offer_text">Delete offer</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="incorrect_login_or_password">*Incorrect login or password</string>
+    <string name="your_name">Your name</string>
+    <string name="your_surname">Your surname</string>
+    <string name="fill_all">Every field is required</string>
+    <string name="passwords_are_not_the_same">Passwords are not the same</string>
+    <string name="login_too_short">Username must be longer than or equal to 4 characters</string>
+    <string name="password_too_short">Password must be longer than or equal to 8 characters</string>
+    <string name="username_taken">This username is already taken.</string>
 
 </resources>

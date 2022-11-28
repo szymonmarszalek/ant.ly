@@ -7,5 +7,5 @@ import com.example.antly.data.dto.UserDto
 interface LoginRepository {
     suspend fun login(userDto: UserDto): LoginResponseDto
 
-    suspend fun register(user: RegisterData): String
+    suspend fun register(user: RegisterData)
 }

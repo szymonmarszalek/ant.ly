@@ -15,11 +15,14 @@ class RegisterUseCase @Inject constructor(private val loginRepository: LoginRepo
         try {
             emit(Resource.Loading<String>())
             val register = loginRepository.register(registerData)
-            emit(Resource.Success<String>(register))
+            emit(Resource.Success<String>())
         } catch (e: HttpException) {
-            emit(Resource.Error<String>("No connection"))
-        } catch (e: IOException) {
-            emit(Resource.Error<String>("error"))
+            println(e.code())
+            emit(Resource.Error<String>(e.code().toString()))
+        }
+        catch (e: IOException) {
+            println(e.localizedMessage!!)
+            emit(Resource.Error<String>("Something went wrong"))
         }
     }
 }

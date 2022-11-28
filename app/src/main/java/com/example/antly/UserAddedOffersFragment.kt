@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.antly.common.Resource
+import com.example.antly.data.dto.OfferResponse
 import com.example.antly.databinding.FragmentUserAddedOffersBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +38,7 @@ class UserAddedOffersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = AddedOfferAdapter({ it -> println(it) }, { deleteOffer(it.id) })
+        val adapter = AddedOfferAdapter({ showOfferDetails(it) }, { deleteOffer(it.id) }, {editOffer(it.id)})
         binding.apply {
 
             addedOffersRecycleView.apply {
@@ -69,6 +73,15 @@ class UserAddedOffersFragment : Fragment() {
         }
     }
 
+    private fun editOffer(offerId: Int) {
+        val bundle = Bundle()
+        bundle.putInt("offer_id" , offerId)
+        requireActivity()
+            .findViewById<FragmentContainerView>(R.id.nav_host_user_added_offers)
+            .findNavController()
+            .navigate(R.id.action_userAddedOffersFragment_to_editOfferFragment, bundle)
+    }
+
     private fun showProgressBar() {
         binding.addedOffersRecycleView.visibility = View.GONE
         binding.progressBarCyclic.visibility = View.VISIBLE
@@ -82,6 +95,16 @@ class UserAddedOffersFragment : Fragment() {
     private fun showNoOfferLayout() {
         binding.noAddedOffersContainer.visibility = View.VISIBLE
         binding.addedOffersRecycleView.visibility = View.GONE
+    }
+
+    private fun showOfferDetails(offerId: OfferResponse) {
+        val bundle = Bundle()
+        bundle.putParcelable("offer", offerId)
+        bundle.putString("offer_details" , "user_offer")
+        requireActivity()
+            .findViewById<FragmentContainerView>(R.id.nav_host_user_added_offers)
+            .findNavController()
+            .navigate(R.id.action_userAddedOffersFragment_to_offerDetailsFragment, bundle)
     }
 
     private fun deleteOffer(offerId: Int) {

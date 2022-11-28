@@ -26,8 +26,6 @@ class SubjectsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         getCategories()
         typeOfChoosing = arguments?.getString("type_of_choosing_subject")
-        println("tutaj" + typeOfChoosing)
-
     }
 
     override fun onCreateView(
@@ -59,16 +57,14 @@ class SubjectsFragment : Fragment() {
 
         if (typeOfChoosing == "find_offer") {
             sharedViewModel.subject.value = category
-            requireActivity()
-                .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
-                .findNavController()
-                .navigate(R.id.action_subjectsFragment_to_useHome)
+            sharedViewModel.isPopBackStack = true
+            view?.findNavController()?.popBackStack()
         } else {
             sharedAddOfferViewModel.offerSubject.value = category
             requireActivity()
-                .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
+                .findViewById<FragmentContainerView>(R.id.nav_host_add_offer)
                 .findNavController()
-                .navigate(R.id.action_subjectsFragment_to_useNewOffer)
+                .navigate(R.id.action_subjectsFragment_to_addOfferFragment)
         }
     }
 

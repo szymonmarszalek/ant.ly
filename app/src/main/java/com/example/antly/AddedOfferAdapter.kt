@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.antly.data.dto.OfferResponse
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso
 
 class AddedOfferAdapter(
     private val offer: (OfferResponse) -> Unit,
+    private val editOffer: (OfferResponse) -> Unit,
     private val deleteOffer: (OfferResponse) -> Unit
 ) :
     RecyclerView.Adapter<AddedOfferAdapter.ViewHolder>() {
@@ -32,6 +34,7 @@ class AddedOfferAdapter(
     class ViewHolder(
         val view: View,
         private val offer: (OfferResponse) -> Unit,
+        private val editOffer: (OfferResponse) -> Unit,
         private val deleteOffer: (OfferResponse) -> Unit,
     ) : RecyclerView.ViewHolder(view) {
         fun bind(offer: OfferResponse) {
@@ -55,6 +58,10 @@ class AddedOfferAdapter(
             view.findViewById<ImageButton>(R.id.deleteOfferButton).setOnClickListener {
                 deleteOffer(offer)
             }
+
+            view.findViewById<ImageButton>(R.id.editButton).setOnClickListener {
+                editOffer(offer)
+            }
         }
     }
 
@@ -65,7 +72,7 @@ class AddedOfferAdapter(
             false
         )
 
-        return ViewHolder(inflatedView, offer, deleteOffer)
+        return ViewHolder(inflatedView, offer, deleteOffer, editOffer)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

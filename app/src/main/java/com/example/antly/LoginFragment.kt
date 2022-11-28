@@ -2,13 +2,13 @@ package com.example.antly
 
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -36,30 +36,33 @@ class LoginFragment : Fragment() {
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val loginButton = view.findViewById<Button>(R.id.loginButton)
-        val createAccountTextView = view.findViewById<TextView>(R.id.createAccountTextView)
-        val loginInput = view.findViewById<EditText>(R.id.loginInput)
-        val passwordInput = view.findViewById<EditText>(R.id.passwordInput)
 
         loginButton.setOnClickListener {
-            loginViewModel.login(binding.loginInput.text.toString(), binding.passwordInput.text.toString())
+            if (binding.loginInput.text.isNullOrEmpty() || binding.passwordInput.text.isNullOrEmpty()) {
+                binding.errorTextView.visibility = View.VISIBLE
+            } else {
+                loginViewModel.login(binding.loginInput.text.toString(),
+                    binding.passwordInput.text.toString())
+            }
 
-            loginViewModel.viewState.observe(viewLifecycleOwner) {
-                when(it) {
-                    is Resource.Success -> loginUser()
-                    is Resource.Loading -> {
-                        println("LOADING")
-                        binding.progressBarCyclic.visibility = View.VISIBLE
-                        binding.loginContainer.visibility = View.GONE
-                    }
-                    is Resource.Error -> {
-                        println("ERROR")
-                        binding.progressBarCyclic.visibility = View.GONE
-                        binding.loginContainer.visibility = View.VISIBLE
-                    }
+        }
+
+        loginViewModel.viewState.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> loginUser()
+                is Resource.Loading -> {
+                    binding.progressBarCyclic.visibility = View.VISIBLE
+                    binding.loginContainer.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    binding.errorTextView.visibility = View.VISIBLE
+                    binding.progressBarCyclic.visibility = View.GONE
+                    binding.loginContainer.visibility = View.VISIBLE
                 }
             }
         }

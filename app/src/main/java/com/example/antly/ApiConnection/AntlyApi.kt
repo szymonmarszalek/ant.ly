@@ -14,10 +14,15 @@ interface AntlyApi {
     ): LoginResponseDto
 
     @POST("auth/signup")
-    suspend fun registerUser(@Body registerData: RegisterData): String
+    suspend fun registerUser(@Body registerData: RegisterData)
 
     @GET("/offers")
     suspend fun getAllOffers(): List<OfferResponse>
+
+    @GET("/offers/{id}")
+    suspend fun getOfferById(
+        @Path("id") id: Int,
+    ): OfferResponse
 
     @POST("/offers")
     suspend fun postOffer(@Body offer: Offer): OfferResponse
@@ -37,5 +42,11 @@ interface AntlyApi {
     @DELETE("/offers/{id}")
     suspend fun deleteOffer(
         @Path("id") offerId: Int,
+    )
+
+    @PATCH("/offers/{id}")
+    suspend fun editOffer(
+        @Path("id") offerId: Int,
+        @Body offer: Offer
     )
 }

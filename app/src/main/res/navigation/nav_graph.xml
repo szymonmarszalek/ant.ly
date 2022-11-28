@@ -8,47 +8,15 @@
         android:id="@+id/useHome"
         android:name="com.example.antly.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment_to_addOfferFragment"
-            app:destination="@id/useNewOffer" />
-        <action
-            android:id="@+id/action_useHome_to_userAddedOffersFragment"
-            app:destination="@id/useYourCourses" />
-        <action
-            android:id="@+id/action_useHome_to_useAccount"
-            app:destination="@id/useAccount" />
-        <action
-            android:id="@+id/action_useHome_to_useBoughtCourses"
-            app:destination="@id/useBoughtCourses" />
-        <action
-            android:id="@+id/action_useHome_to_subjectsFragment"
-            app:destination="@id/subjectsFragment" />
-        <action
-            android:id="@+id/action_useHome_to_levelFragment"
-            app:destination="@id/levelFragment" />
-        <action
-            android:id="@+id/action_useHome_to_offerDetailsFragment"
-            app:destination="@id/offerDetailsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_main"/>
     <fragment
         android:id="@+id/useNewOffer"
-        android:name="com.example.antly.AddOfferFragment"
+        android:name="com.example.antly.UseAddOfferFragment"
         android:label="fragment_add_offer"
-        tools:layout="@layout/fragment_add_offer" >
-        <action
-            android:id="@+id/action_useNewOffer_to_useHome"
-            app:destination="@id/useHome" />
-        <action
-            android:id="@+id/action_useNewOffer_to_subjectsFragment"
-            app:destination="@id/subjectsFragment" />
-        <action
-            android:id="@+id/action_useNewOffer_to_levelFragment"
-            app:destination="@id/levelFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_offer" />
     <fragment
-        android:id="@+id/useYourCourses"
-        android:name="com.example.antly.UserAddedOffersFragment"
+        android:id="@+id/useAddedCourses"
+        android:name="com.example.antly.UseYourCoursesFragment"
         android:label="fragment_user_added_offers"
         tools:layout="@layout/fragment_user_added_offers" />
 
@@ -63,33 +31,4 @@
         android:name="com.example.antly.UserBoughtOffersFragment"
         android:label="fragment_user_added_offers"
         tools:layout="@layout/fragment_user_added_offers" />
-    <fragment
-        android:id="@+id/subjectsFragment"
-        android:name="com.example.antly.SubjectsFragment"
-        android:label="fragment_subjects"
-        tools:layout="@layout/fragment_subjects" >
-        <action
-            android:id="@+id/action_subjectsFragment_to_useHome"
-            app:destination="@id/useHome" />
-        <action
-            android:id="@+id/action_subjectsFragment_to_useNewOffer"
-            app:destination="@id/useNewOffer" />
-    </fragment>
-    <fragment
-        android:id="@+id/levelFragment"
-        android:name="com.example.antly.LevelFragment"
-        android:label="fragment_level"
-        tools:layout="@layout/fragment_level" >
-        <action
-            android:id="@+id/action_levelFragment_to_useHome"
-            app:destination="@id/useHome" />
-        <action
-            android:id="@+id/action_levelFragment_to_useNewOffer"
-            app:destination="@id/useNewOffer" />
-    </fragment>
-    <fragment
-        android:id="@+id/offerDetailsFragment"
-        android:name="com.example.antly.OfferDetailsFragment"
-        android:label="fragment_offer_details"
-        tools:layout="@layout/fragment_offer_details" />
 </navigation>

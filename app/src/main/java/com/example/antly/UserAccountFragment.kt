@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.antly.databinding.FragmentUserAccountBinding
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -52,7 +50,7 @@ class UserAccountFragment : Fragment() {
             }
 
             userAddedOffersButton.setOnClickListener {
-                navigateToChosenFragment(view,R.id.useYourCourses)
+                navigateToChosenFragment(view,R.id.useAddedCourses)
             }
 
             usernameTextView.text = viewModel.getLoggedUserName()

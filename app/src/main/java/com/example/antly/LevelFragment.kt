@@ -23,6 +23,7 @@ class LevelFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getLevels()
+
         typeOfChoosing = arguments?.getString("type_of_choosing_level")
     }
 
@@ -32,8 +33,7 @@ class LevelFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentLevelBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,17 +55,15 @@ class LevelFragment : Fragment() {
 
         if (typeOfChoosing == "find_offer") {
             sharedViewModel.range.value = category
+            sharedViewModel.isPopBackStack = true
+            view?.findNavController()?.popBackStack()
 
-            requireActivity()
-                .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
-                .findNavController()
-                .navigate(R.id.action_levelFragment_to_useHome)
         } else {
             sharedAddOfferViewModel.offerLevel.value = category
             requireActivity()
-                .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
+                .findViewById<FragmentContainerView>(R.id.nav_host_add_offer)
                 .findNavController()
-                .navigate(R.id.action_levelFragment_to_useNewOffer)
+                .navigate(R.id.action_levelFragment_to_addOfferFragment)
         }
 
     }
@@ -87,7 +85,6 @@ class LevelFragment : Fragment() {
             levels.add(
                 Level("University", R.drawable.account_school_outline)
             )
-
 
             return levels
         }

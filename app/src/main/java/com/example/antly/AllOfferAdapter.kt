@@ -15,14 +15,12 @@ class AllOfferAdapter(
 ) :
     RecyclerView.Adapter<AllOfferAdapter.ViewHolder>() {
 
-    private val allOffersList = mutableListOf<OfferResponse>()
+    private var allOffersList = listOf<OfferResponse>()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setOfferList(allOffers: List<OfferResponse>) {
-        if (allOffersList.isNotEmpty())
-            allOffersList.clear()
 
-        allOffersList.addAll(allOffers)
+        allOffersList = allOffers
         notifyDataSetChanged()
     }
 

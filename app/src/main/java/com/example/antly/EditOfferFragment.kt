@@ -8,17 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.antly.common.Resource
 import com.example.antly.data.dto.Offer
-import com.example.antly.databinding.FragmentAddOfferBinding
-
+import com.example.antly.data.dto.OfferResponse
+import com.example.antly.databinding.FragmentEditOfferBinding
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import org.json.JSONException
@@ -26,11 +24,9 @@ import org.json.JSONObject
 import java.io.IOException
 
 @AndroidEntryPoint
-class AddOfferFragment : Fragment() {
-
-    private val viewModel: AddNewOfferViewModel by viewModels()
-    private val sharedViewModel: AddOfferSharedViewModel by activityViewModels()
-    private var _binding: FragmentAddOfferBinding? = null
+class EditOfferFragment : Fragment() {
+    private val editOfferViewModel: EditOfferViewModel by viewModels()
+    private var _binding: FragmentEditOfferBinding? = null
     private val binding get() = _binding!!
     private var offerTitle: String? = null
     private var offerSubject: String? = null
@@ -40,24 +36,18 @@ class AddOfferFragment : Fragment() {
     private var offerLongDescription: String? = null
     private var offerLocation: String? = null
     private var offerPrice: Int? = null
+    private var offer: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        offerTitle = sharedViewModel.offerTitle.value
-        offerSubject = sharedViewModel.offerSubject.value
-        offerLevel = sharedViewModel.offerLevel.value
-        offerImageUrl = sharedViewModel.offerImageUrl.value
-        offerShortDescription = sharedViewModel.offerShortDescription.value
-        offerLongDescription = sharedViewModel.offerLongDescription.value
-        offerLocation = sharedViewModel.offerLocation.value
-        offerPrice = sharedViewModel.offerPrice.value
+        offer = arguments?.getInt("offer_id")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentAddOfferBinding.inflate(inflater, container, false)
+        _binding = FragmentEditOfferBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,34 +57,64 @@ class AddOfferFragment : Fragment() {
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),
             R.layout.autofill_list, R.id.text_view_list_item, getCountryCode(requireContext()))
 
+        offer?.let { editOfferViewModel.getOfferById(it) }
+
 
         binding.apply {
             setSubjectAndLevelWhenNotNull(offerSubject, offerLevel)
+            editOfferViewModel.viewStateOfferById.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Error -> {
+                        TODO()
+                    }
+                    is Resource.Loading -> {
+                        progressBarCyclic.visibility = View.VISIBLE
+                        addOfferContainer.visibility = View.GONE
+                    }
+                    is Resource.Success -> {
+                        progressBarCyclic.visibility = View.GONE
+                        addOfferContainer.visibility = View.VISIBLE
+                        setFieldsIfTheyAreNotEmpty(it.data!!)
+                    }
+                }
+            }
 
-            setFieldsIfTheyAreNotEmpty(offerTitle,
-                offerImageUrl,
-                offerShortDescription,
-                offerLongDescription,
-                offerLocation,
-                offerPrice
-            )
+            editOfferViewModel.viewStateEdit.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Error -> {
+                        TODO()
+                    }
+                    is Resource.Loading -> {
+                        progressBarCyclic.visibility = View.VISIBLE
+                        addOfferContainer.visibility = View.GONE
+                    }
+                    is Resource.Success -> {
+                        requireActivity()
+                            .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
+                            .findNavController()
+                            .navigate(R.id.useHome)
+                    }
+                }
+            }
+
+            editOfferViewModel.viewStateEdit.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Error -> {
+                        TODO()
+                    }
+                    is Resource.Loading -> {
+                        progressBarCyclic.visibility = View.VISIBLE
+                        addOfferContainer.visibility = View.GONE
+                    }
+                    is Resource.Success -> {
+                        progressBarCyclic.visibility = View.GONE
+                        addOfferContainer.visibility = View.VISIBLE
+                    }
+                }
+            }
 
             localizationInput.setAdapter(adapter)
-            categoryContainer.setOnClickListener {
-                val bundle = bundleOf("type_of_choosing_subject" to "add_offer")
-                requireActivity()
-                    .findViewById<FragmentContainerView>(R.id.nav_host_add_offer)
-                    .findNavController()
-                    .navigate(R.id.action_addOfferFragment_to_subjectsFragment, bundle)
-            }
 
-            levelContainer.setOnClickListener {
-                val bundle = bundleOf("type_of_choosing_level" to "add_offer")
-                requireActivity()
-                    .findViewById<FragmentContainerView>(R.id.nav_host_add_offer)
-                    .findNavController()
-                    .navigate(R.id.action_addOfferFragment_to_levelFragment, bundle)
-            }
 
             addOffer.setOnClickListener {
                 if (
@@ -103,51 +123,30 @@ class AddOfferFragment : Fragment() {
                     offerLevel?.isNotEmpty() == true &&
                     offerImageUrl?.isNotEmpty() == true &&
                     offerLocation?.isNotEmpty() == true &&
-                    offerShortDescription?.isNotEmpty() == true  &&
+                    offerShortDescription?.isNotEmpty() == true &&
                     offerLongDescription?.isNotEmpty() == true &&
                     offerPrice != null
                 ) {
+                    editOfferViewModel.editOffer(offer!!, Offer(
+                        offerTitle!!,
+                        offerShortDescription!!,
+                        offerLongDescription!!,
+                        offerSubject!!,
+                        offerLocation!!,
+                        offerImageUrl!!,
+                        offerPrice!!,
+                        offerLevel!!
+                    ))
 
-                    viewModel.addOffer(
-                        Offer(
-                            offerTitle!!,
-                            offerShortDescription!!,
-                            offerLongDescription!!,
-                            offerSubject!!,
-                            offerLocation!!,
-                            offerImageUrl!!,
-                            offerPrice!!,
-                            offerLevel!!,
-                        )
-                    )
                 } else {
                     checkWhichFieldsAreEmptyAndShowMessage()
                 }
             }
         }
 
-
-        viewModel.viewState.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    requireActivity()
-                        .findViewById<FragmentContainerView>(R.id.nav_host_fragment_content_main)
-                        .findNavController()
-                        .navigate(R.id.useHome)
-
-                    cleanFields()
-                }
-                is Resource.Error -> TODO()
-                is Resource.Loading -> {
-                    binding.AddOfferScrollView.visibility = View.GONE
-                    binding.progressBarCyclic.visibility = View.VISIBLE
-                }
-            }
-        }
-
     }
 
-    private fun FragmentAddOfferBinding.checkWhichFieldsAreEmptyAndShowMessage() {
+    private fun FragmentEditOfferBinding.checkWhichFieldsAreEmptyAndShowMessage() {
         showInformationAboutEmptyField(requiredTitle, offerTitle)
         showInformationAboutEmptyField(requiredShortDescription, offerShortDescription)
         showInformationAboutEmptyField(requiredLongDescription, offerLongDescription)
@@ -175,80 +174,85 @@ class AddOfferFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun FragmentAddOfferBinding.setFieldsIfTheyAreNotEmpty(
-        title: String?,
-        imageUrl: String?,
-        shortDescription: String?,
-        longDescription: String?,
-        location: String?,
-        price: Int?,
+    private fun FragmentEditOfferBinding.setFieldsIfTheyAreNotEmpty(
+        offer: OfferResponse,
     ) {
+
+        offerTitle = offer.title
+        offerSubject = offer.subject
+        offerPrice = offer.price
+        offerLongDescription = offer.descriptionLong
+        offerShortDescription = offer.descriptionShort
+        offerLevel = offer.range
+        offerLocation = offer.location
+        offerImageUrl = offer.imageUrl
+
+        categoryTextView.text = offer.subject
+        categoryTextView.setTextColor(resources.getColor(R.color.black))
+
+
+
+        levelTextView.text = offer.range
+        levelTextView.setTextColor(resources.getColor(R.color.black))
 
 
         subjectInputTextField.apply {
-            setText(title)
+            setText(offer.title)
 
             doOnTextChanged { text, _, _, _ ->
                 offerTitle = text.toString()
                 maxOfSignsTitle.text = "${text?.length}/30"
-                sharedViewModel.offerTitle.value = text.toString()
             }
         }
 
         localizationInput.apply {
-            setText(location)
+            setText(offer.location)
 
             doOnTextChanged { text, _, _, _ ->
                 offerLocation = text.toString()
-                sharedViewModel.offerLocation.value = text.toString()
             }
         }
 
         offerShortDescriptionTextField.apply {
-            setText(shortDescription)
+            setText(offer.descriptionShort)
 
             doOnTextChanged { text, _, _, count ->
                 maxOfSignsShort.text = "${text?.length}/70"
                 offerShortDescription = text.toString()
-                sharedViewModel.offerShortDescription.value = text.toString()
             }
         }
 
         offerLongDescriptionTextField.apply {
-            setText(longDescription)
+            setText(offer.descriptionLong)
 
             doOnTextChanged { text, _, _, _ ->
                 maxOfSignsLong.text = "${text?.length}/200"
                 offerLongDescription = text.toString()
-                sharedViewModel.offerLongDescription.value = text.toString()
             }
         }
 
         pictureUrlTextField.apply {
-            setText(imageUrl)
+            setText(offer.imageUrl)
 
             doOnTextChanged { text, _, _, _ ->
                 offerImageUrl = text.toString()
-                sharedViewModel.offerImageUrl.value = text.toString()
             }
         }
 
         offerPriceTextField.apply {
-            if (offerPrice != null)
-                setText(price.toString())
+            setText(offer.price.toString())
 
             doOnTextChanged { text, _, _, _ ->
                 if (text != null) {
                     if (text.isNotBlank()) {
                         offerPrice = text.toString().toInt()
-                        sharedViewModel.offerPrice.value = text.toString().toInt()
                     }
                 }
             }
         }
     }
 
-    private fun FragmentAddOfferBinding.setSubjectAndLevelWhenNotNull(
+    private fun FragmentEditOfferBinding.setSubjectAndLevelWhenNotNull(
         offerSubject: String?,
         offerLevel: String?,
     ) {
@@ -301,6 +305,5 @@ class AddOfferFragment : Fragment() {
         offerLongDescription = null
         offerLocation = null
         offerPrice = null
-        sharedViewModel.cleanFields()
     }
 }

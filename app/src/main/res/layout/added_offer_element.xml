@@ -34,6 +34,7 @@
             android:id="@+id/subjectTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mulish"
             android:text="@string/title"
             android:textColor="@color/green_main"
             android:textSize="13sp"
@@ -44,6 +45,7 @@
             android:id="@+id/subjectTopicTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mulish"
             android:lines="2"
             android:maxLines="2"
             android:text="@string/title"
@@ -63,6 +65,7 @@
                 android:id="@+id/offerLevel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/mulish"
                 android:text="Szkoła podstawowa"
                 android:textColor="@color/creme"
                 android:textSize="10dp"
@@ -84,6 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/mulish"
                 android:text="@string/title"
                 android:textColor="@color/green_main"
                 android:textSize="18dp"
@@ -95,6 +99,7 @@
                 android:id="@+id/offerLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/mulish"
                 android:text="@string/title"
                 android:textColor="@color/green_main"
                 android:textSize="13sp"
@@ -131,11 +136,13 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="70">
 
                 <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/editButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/green_dark"

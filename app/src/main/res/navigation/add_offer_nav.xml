@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_offer_nav"
+    app:startDestination="@id/addOfferFragment">
+
+    <fragment
+        android:id="@+id/addOfferFragment"
+        android:name="com.example.antly.AddOfferFragment"
+        android:label="fragment_add_offer"
+        tools:layout="@layout/fragment_add_offer" >
+        <action
+            android:id="@+id/action_addOfferFragment_to_subjectsFragment"
+            app:destination="@id/subjectsFragment" />
+        <action
+            android:id="@+id/action_addOfferFragment_to_levelFragment"
+            app:destination="@id/levelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/levelFragment"
+        android:name="com.example.antly.LevelFragment"
+        android:label="fragment_level"
+        tools:layout="@layout/fragment_level" >
+        <action
+            android:id="@+id/action_levelFragment_to_addOfferFragment"
+            app:destination="@id/addOfferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subjectsFragment"
+        android:name="com.example.antly.SubjectsFragment"
+        android:label="fragment_subjects"
+        tools:layout="@layout/fragment_subjects" >
+        <action
+            android:id="@+id/action_subjectsFragment_to_addOfferFragment"
+            app:destination="@id/addOfferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editOfferFragment"
+        android:name="com.example.antly.EditOfferFragment"
+        android:label="EditOfferFragment" />
+</navigation>

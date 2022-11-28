@@ -33,4 +33,13 @@ class OffersRepositoryImpl @Inject constructor(val api: AntlyApi) : OffersReposi
     override suspend fun deleteOffer(offerId: Int) {
         return api.deleteOffer(offerId)
     }
+
+    override suspend fun editOffer(offerId: Int, offer: Offer) {
+        return api.editOffer(offerId, offer)
+    }
+
+    override suspend fun getOfferById(offerId: Int)
+    :OfferResponse {
+        return api.getOfferById(offerId)
+    }
 }

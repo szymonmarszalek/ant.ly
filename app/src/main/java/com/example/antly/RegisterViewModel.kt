@@ -21,12 +21,11 @@ class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase
 
 
     fun register(registerData: RegisterData) {
-        println("REGISTER")
         registerUseCase(registerData).onEach {
             when (it) {
-                is Resource.Success -> println("udano")
-                is Resource.Error -> println(":error")
-                is Resource.Loading -> println("WAIT")
+                is Resource.Success -> _viewState.value = Resource.Success()
+                is Resource.Error -> _viewState.value = Resource.Error(it.message!!)
+                is Resource.Loading -> _viewState.value = Resource.Loading()
             }
         }.launchIn(viewModelScope)
 

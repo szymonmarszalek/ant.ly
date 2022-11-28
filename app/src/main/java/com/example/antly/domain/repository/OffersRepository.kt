@@ -22,4 +22,13 @@ interface OffersRepository {
     suspend fun deleteOffer(
         offerId: Int,
     )
+
+    suspend fun editOffer(
+        offerId: Int,
+        offer: Offer
+    )
+
+    suspend fun getOfferById(
+        offerId: Int,
+    ) : OfferResponse
 }

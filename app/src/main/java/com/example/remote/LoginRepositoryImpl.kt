@@ -12,7 +12,7 @@ class LoginRepositoryImpl @Inject constructor(val api: AntlyApi): LoginRepositor
         return api.loginUser(userDto)
     }
 
-    override suspend fun register(user: RegisterData): String{
+    override suspend fun register(user: RegisterData){
         return  api.registerUser(user)
     }
 
