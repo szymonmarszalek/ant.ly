@@ -1,5 +1,6 @@
 package com.example.antly.domain.repository
 
+import com.example.antly.data.dto.FavouritesDto
 import com.example.antly.data.dto.Offer
 import com.example.antly.data.dto.OfferResponse
 
@@ -31,4 +32,17 @@ interface OffersRepository {
     suspend fun getOfferById(
         offerId: Int,
     ) : OfferResponse
+
+    suspend fun addOfferToFavorites(
+        offerId: Int,
+    )
+
+    suspend fun getFavoriteOffers(
+        username: String,
+    ): List<FavouritesDto>
+
+    suspend fun deleteFavoriteOffer(
+        username: String,
+        offerId: Int
+    )
 }

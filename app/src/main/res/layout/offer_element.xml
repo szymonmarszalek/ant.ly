@@ -17,6 +17,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/heartIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/search_input_style"
+        android:backgroundTint="@color/green_main"
+        android:src="@drawable/cards_heart_outline"
+        app:layout_constraintBottom_toBottomOf="@+id/offerImage"
+        app:layout_constraintEnd_toEndOf="@+id/offerImage" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/offerTextElements"

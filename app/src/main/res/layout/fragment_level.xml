@@ -15,17 +15,30 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/mulish"
             android:text="@string/level"
             android:textColor="@color/creme"
-            android:fontFamily="@font/mulish"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:tint="@color/creme" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

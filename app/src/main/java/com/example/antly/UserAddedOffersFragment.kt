@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.antly.common.Resource
 import com.example.antly.data.dto.OfferResponse
 import com.example.antly.databinding.FragmentUserAddedOffersBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,7 +32,6 @@ class UserAddedOffersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentUserAddedOffersBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +50,10 @@ class UserAddedOffersFragment : Fragment() {
 
             viewModel.addedOffersState.observe(viewLifecycleOwner) {
                 when (it) {
-                    is Resource.Error -> println("error")
+                    is Resource.Error -> {
+                        Snackbar.make(view, R.string.something_went_wrong, Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
                     is Resource.Loading -> showProgressBar()
                     is Resource.Success -> {
                         hideProgressBar()
@@ -61,15 +64,20 @@ class UserAddedOffersFragment : Fragment() {
                         }
                     }
                 }
+                viewModel.addedOffersState.postValue(null)
             }
         }
 
         viewModel.deleteOfferState.observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Error -> println("NIE UDANO")
+                is Resource.Error -> {
+                    Snackbar.make(view, R.string.something_went_wrong, Snackbar.LENGTH_SHORT)
+                        .show()
+                }
                 is Resource.Loading -> {}
                 is Resource.Success -> viewModel.getAddedOffers()
             }
+            viewModel.deleteOfferState.postValue(null)
         }
     }
 
@@ -77,7 +85,7 @@ class UserAddedOffersFragment : Fragment() {
         val bundle = Bundle()
         bundle.putInt("offer_id" , offerId)
         requireActivity()
-            .findViewById<FragmentContainerView>(R.id.nav_host_user_added_offers)
+            .findViewById<FragmentContainerView>(R.id.nav_host_fav_offers)
             .findNavController()
             .navigate(R.id.action_userAddedOffersFragment_to_editOfferFragment, bundle)
     }

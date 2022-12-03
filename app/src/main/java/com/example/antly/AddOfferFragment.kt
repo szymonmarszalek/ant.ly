@@ -18,6 +18,7 @@ import androidx.navigation.findNavController
 import com.example.antly.common.Resource
 import com.example.antly.data.dto.Offer
 import com.example.antly.databinding.FragmentAddOfferBinding
+import com.google.android.material.snackbar.Snackbar
 
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
@@ -137,7 +138,8 @@ class AddOfferFragment : Fragment() {
 
                     cleanFields()
                 }
-                is Resource.Error -> TODO()
+                is Resource.Error -> Snackbar.make(view, R.string.something_went_wrong, Snackbar.LENGTH_SHORT)
+                    .show()
                 is Resource.Loading -> {
                     binding.AddOfferScrollView.visibility = View.GONE
                     binding.progressBarCyclic.visibility = View.VISIBLE

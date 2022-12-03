@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.antly.data.dto.Level
 import com.example.antly.databinding.FragmentLevelBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LevelFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -38,6 +39,10 @@ class LevelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        navBar.visibility = View.GONE
+
         var layoutManagerSubjects: LinearLayoutManager? =
             LinearLayoutManager(requireContext())
 
@@ -48,11 +53,18 @@ class LevelFragment : Fragment() {
             this.adapter = adapter
         }
 
+        binding.cancelButton.setOnClickListener {
+            sharedViewModel.isPopBackStack = true
+            view.findNavController().popBackStack()
+
+            val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+            navBar.visibility = View.VISIBLE
+        }
+
         adapter.setLevels(getLevels())
     }
 
     private fun chooseCategory(category: String) {
-
         if (typeOfChoosing == "find_offer") {
             sharedViewModel.range.value = category
             sharedViewModel.isPopBackStack = true
@@ -63,8 +75,11 @@ class LevelFragment : Fragment() {
             requireActivity()
                 .findViewById<FragmentContainerView>(R.id.nav_host_add_offer)
                 .findNavController()
-                .navigate(R.id.action_levelFragment_to_addOfferFragment)
+                .popBackStack()
         }
+
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        navBar.visibility = View.VISIBLE
 
     }
 

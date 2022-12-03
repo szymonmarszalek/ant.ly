@@ -41,5 +41,9 @@
         android:id="@+id/offerDetailsFragment"
         android:name="com.example.antly.OfferDetailsFragment"
         android:label="fragment_offer_details"
-        tools:layout="@layout/fragment_offer_details" />
+        tools:layout="@layout/fragment_offer_details" >
+        <action
+            android:id="@+id/action_offerDetailsFragment_to_fragment_all_offers"
+            app:destination="@id/fragment_all_offers" />
+    </fragment>
 </navigation>

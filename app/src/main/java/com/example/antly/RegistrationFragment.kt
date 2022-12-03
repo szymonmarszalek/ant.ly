@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.example.antly.common.Resource
 import com.example.antly.data.RegisterData
 import com.example.antly.databinding.FragmentRegistrationBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.http.HTTP
 
@@ -71,6 +72,8 @@ class RegistrationFragment : Fragment() {
         viewModel.viewState.observe(viewLifecycleOwner) {
             when(it) {
                 is Resource.Error -> {
+                    Snackbar.make(view, R.string.something_went_wrong, Snackbar.LENGTH_SHORT)
+                        .show()
                     binding.nameAndAllErrorTextView.visibility = View.VISIBLE
                     binding.progressBarCyclic.visibility = View.GONE
                     binding.registrationInput.visibility = View.VISIBLE

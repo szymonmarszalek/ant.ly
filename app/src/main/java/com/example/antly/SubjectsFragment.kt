@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.antly.data.dto.SubjectCategory
 import com.example.antly.databinding.FragmentSubjectsBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SubjectsFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -42,12 +43,21 @@ class SubjectsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var layoutManagerSubjects: LinearLayoutManager? =
             LinearLayoutManager(requireContext())
-
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        navBar.visibility = View.GONE
         var adapter = SubjectListAdapter() {chooseCategory(it)}
 
         binding.subjectsRecycleView.apply {
             layoutManager = layoutManagerSubjects
             this.adapter = adapter
+        }
+
+        binding.cancelButton.setOnClickListener {
+            sharedViewModel.isPopBackStack = true
+            view.findNavController().popBackStack()
+
+            val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+            navBar.visibility = View.VISIBLE
         }
 
         adapter.setCategories(getCategories())
@@ -66,6 +76,8 @@ class SubjectsFragment : Fragment() {
                 .findNavController()
                 .navigate(R.id.action_subjectsFragment_to_addOfferFragment)
         }
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        navBar.visibility = View.VISIBLE
     }
 
     companion object {

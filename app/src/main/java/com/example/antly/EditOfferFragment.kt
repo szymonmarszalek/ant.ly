@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -17,6 +19,7 @@ import com.example.antly.common.Resource
 import com.example.antly.data.dto.Offer
 import com.example.antly.data.dto.OfferResponse
 import com.example.antly.databinding.FragmentEditOfferBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import org.json.JSONException
@@ -65,7 +68,8 @@ class EditOfferFragment : Fragment() {
             editOfferViewModel.viewStateOfferById.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Error -> {
-                        TODO()
+                        Snackbar.make(view, R.string.something_went_wrong, Snackbar.LENGTH_SHORT)
+                            .show()
                     }
                     is Resource.Loading -> {
                         progressBarCyclic.visibility = View.VISIBLE
@@ -77,12 +81,14 @@ class EditOfferFragment : Fragment() {
                         setFieldsIfTheyAreNotEmpty(it.data!!)
                     }
                 }
+                editOfferViewModel.viewStateOfferById.postValue(null)
             }
 
             editOfferViewModel.viewStateEdit.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Error -> {
-                        TODO()
+                        Snackbar.make(view, R.string.something_went_wrong, Snackbar.LENGTH_SHORT)
+                            .show()
                     }
                     is Resource.Loading -> {
                         progressBarCyclic.visibility = View.VISIBLE
@@ -95,12 +101,14 @@ class EditOfferFragment : Fragment() {
                             .navigate(R.id.useHome)
                     }
                 }
+                editOfferViewModel.viewStateEdit.postValue(null)
             }
 
             editOfferViewModel.viewStateEdit.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Error -> {
-                        TODO()
+                        Snackbar.make(view, R.string.something_went_wrong, Snackbar.LENGTH_SHORT)
+                            .show()
                     }
                     is Resource.Loading -> {
                         progressBarCyclic.visibility = View.VISIBLE
@@ -112,7 +120,7 @@ class EditOfferFragment : Fragment() {
                     }
                 }
             }
-
+            editOfferViewModel.viewStateEdit.postValue(null)
             localizationInput.setAdapter(adapter)
 
 
@@ -141,6 +149,10 @@ class EditOfferFragment : Fragment() {
                 } else {
                     checkWhichFieldsAreEmptyAndShowMessage()
                 }
+            }
+
+            requireActivity().onBackPressedDispatcher.addCallback {
+               goBack()
             }
         }
 
@@ -171,6 +183,26 @@ class EditOfferFragment : Fragment() {
         } else {
             requireFieldTextView.visibility = View.INVISIBLE
         }
+    }
+
+
+    private fun goBack() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(getString(R.string.cancel_editing_offer))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.Yes)) { dialog, id ->
+                requireActivity()
+                    .findViewById<FragmentContainerView>(R.id.nav_host_user_added_offers)
+                    .findNavController()
+                    .popBackStack()
+
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.No)) { dialog, id ->
+                dialog.dismiss()
+            }
+        val alert = builder.create()
+        alert.show()
     }
 
     @SuppressLint("SetTextI18n")

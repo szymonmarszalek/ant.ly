@@ -1,10 +1,7 @@
 package com.example.antly.ApiConnection
 
 import com.example.antly.data.RegisterData
-import com.example.antly.data.dto.LoginResponseDto
-import com.example.antly.data.dto.Offer
-import com.example.antly.data.dto.OfferResponse
-import com.example.antly.data.dto.UserDto
+import com.example.antly.data.dto.*
 import retrofit2.http.*
 
 interface AntlyApi {
@@ -12,6 +9,11 @@ interface AntlyApi {
     suspend fun loginUser(
         @Body user: UserDto,
     ): LoginResponseDto
+
+    @POST("/favourites")
+    suspend fun addOfferToFavorites(
+        @Body favoriteOffer: FavoriteOffer,
+    )
 
     @POST("auth/signup")
     suspend fun registerUser(@Body registerData: RegisterData)
@@ -39,9 +41,20 @@ interface AntlyApi {
         @Path("teachername") teacherName: String,
     ): List<OfferResponse>
 
+    @GET("/favourites/{username}")
+    suspend fun getFavoriteOffers(
+        @Path("username") username: String,
+    ): List<FavouritesDto>
+
     @DELETE("/offers/{id}")
     suspend fun deleteOffer(
         @Path("id") offerId: Int,
+    )
+
+    @DELETE("/favourites/{userName}/{offerId}")
+    suspend fun deleteFromFavorites(
+        @Path("offerId") offerId: Int,
+        @Path("userName") username: String
     )
 
     @PATCH("/offers/{id}")
